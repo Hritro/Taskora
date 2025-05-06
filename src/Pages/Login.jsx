@@ -1,14 +1,14 @@
 import React, { use } from 'react';
-import { Link } from 'react-router';
-import { GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase.config';
+import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
 
 const Login = () => {
 
-    const {loginWithEmailAndPassword} = use(AuthContext)
+    const {loginWithEmailAndPassword,signInWithGoogle} = use(AuthContext)
 
-    const provider = new GoogleAuthProvider();
+    const location = useLocation()
+    const navigate = useNavigate()
+
 
     const handleLogin = (e) => {
       e.preventDefault()
@@ -20,6 +20,7 @@ const Login = () => {
       loginWithEmailAndPassword(email,password)
       .then(result => {
         console.log(result.user)
+        navigate(location.state || '/')
       })
       .catch(eer => {
         console.log(eer)
@@ -29,9 +30,10 @@ const Login = () => {
     }
 
     const handleGoogleSingIn = () => {
-        signInWithPopup(auth, provider)
+        signInWithGoogle()
         .then(result => {
             console.log(result)
+            navigate(location.state || '/')
         })
         .catch(err =>{
             console.log(err)

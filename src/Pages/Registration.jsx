@@ -1,24 +1,25 @@
 import React, { use } from 'react';
 import { Link } from 'react-router';
-import { GoogleAuthProvider,signInWithPopup } from 'firebase/auth';
-import { auth } from '../firebase.config';
 import { AuthContext } from '../context/AuthContext';
 
 const Registration = () => {
 
-    const {createUser} = use(AuthContext)
+    const {createUser,signInWithGoogle,updateUserProfile} = use(AuthContext)
 
-    const provider = new GoogleAuthProvider();
 
     const handleRegistration = (e) => {
         e.preventDefault()
 
         const email = e.target.email.value
         const password = e.target.password.value
+        const displayName = e.target.name.value
+        const photoURL = e.target.photoURL.value 
+
 
         createUser(email,password)
         .then(result =>{
-            console.log(result.user)
+            console.log(result)
+            updateUserProfile(displayName,photoURL)
         })
         .catch(eer => {
             console.log(eer)
@@ -27,7 +28,7 @@ const Registration = () => {
     }
 
     const handleGoogleSingIn = () => {
-        signInWithPopup(auth, provider)
+        signInWithGoogle()
         .then(result => {
             console.log(result)
         })
@@ -51,6 +52,10 @@ const Registration = () => {
                 </div>
               <form onSubmit={handleRegistration}>
                 <fieldset className="fieldset">
+                    <label className="label">Name</label>
+                    <input name='name' type="text" className="input" placeholder="Name" required/>
+                    <label className="label">PhotoURL</label>
+                    <input name='photoURL' type="text" className="input" placeholder="PhotoURL" required/>
                     <label className="label">Email</label>
                     <input name='email' type="email" className="input" placeholder="Email" required/>
                     <label className="label">Password</label>
