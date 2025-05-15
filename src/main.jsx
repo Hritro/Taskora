@@ -18,6 +18,9 @@ import DashBoard from './Pages/DashBoard.jsx';
 import WorkSpace from './Pages/WorkSpace.jsx';
 import Task from './Pages/Task.jsx';
 import Employee from './Pages/Employee.jsx';
+import Users from './Pages/users.jsx';
+
+
 
 
 
@@ -37,6 +40,10 @@ const router = createBrowserRouter([
       {
         path: '/registration',
         element: <Registration></Registration>
+      },
+      {
+        path: '/users',
+        element: <Users></Users>
       },
       {
         path: '/profile',

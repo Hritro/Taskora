@@ -1,8 +1,8 @@
 import React, { use } from 'react';
 import { NavLink } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
-import Home from '../Pages/Home';
 import { IoMdNotificationsOutline } from "react-icons/io";
+
 
 const NavBar = () => {
 
@@ -21,9 +21,18 @@ const NavBar = () => {
         tabIndex={0}
         className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
         <li><NavLink to='/'>Home</NavLink></li>
-        <li><NavLink to='/login'>Log In</NavLink></li>
-        <li><NavLink to='/registration'>Regstration</NavLink></li>
+        { !user &&
+              <>
+                <li>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/register"}>Register</NavLink>
+                </li>
+              </>
+            }
         <li><NavLink to='/profile'>Profile</NavLink></li>
+        <li><NavLink to='/users'>Users</NavLink></li>
         <div className='mt-1 text-xl'>
           <li><NavLink to='/notification'><IoMdNotificationsOutline /></NavLink></li>
         </div>
@@ -34,9 +43,18 @@ const NavBar = () => {
   <div className="navbar-center hidden md:flex lg:flex">
     <ul className="menu menu-horizontal px-1">
     <li><NavLink to='/'>Home</NavLink></li>
-    <li><NavLink to='/login'>Log In</NavLink></li>
-    <li><NavLink to='/registration'>Regstration</NavLink></li>
+    { !user &&
+              <>
+                <li>
+                  <NavLink to={"/login"}>Login</NavLink>
+                </li>
+                <li>
+                  <NavLink to={"/registration"}>Register</NavLink>
+                </li>
+              </>
+            }
     <li><NavLink to='/profile'>Profile</NavLink></li>
+    <li><NavLink to='/users'>Users</NavLink></li>
     <div className='mt-1 text-xl'>
       <li><NavLink to='/notification'><IoMdNotificationsOutline /></NavLink></li>
     </div>

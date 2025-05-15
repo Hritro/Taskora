@@ -1,6 +1,7 @@
 import React, { use } from 'react';
 import { Link } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Registration = () => {
 
@@ -18,10 +19,12 @@ const Registration = () => {
 
         createUser(email,password)
         .then(result =>{
+            toast.success("Registration Successful")
             console.log(result)
             updateUserProfile(displayName,photoURL)
         })
         .catch(eer => {
+            toast.error(eer.message)
             console.log(eer)
         })
 

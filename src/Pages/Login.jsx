@@ -1,6 +1,7 @@
 import React, { use } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router';
 import { AuthContext } from '../context/AuthContext';
+import toast from 'react-hot-toast';
 
 const Login = () => {
 
@@ -19,10 +20,12 @@ const Login = () => {
       
       loginWithEmailAndPassword(email,password)
       .then(result => {
+        toast.success('Log in Successful')
         console.log(result.user)
         navigate(location.state || '/')
       })
       .catch(eer => {
+        toast.error(eer.message)
         console.log(eer)
       })
 
@@ -50,7 +53,7 @@ const Login = () => {
 
                 </div>
                 <div className="text-center my-5">
-                    <h1 className="text-2xl font-bold">Sing in to Taskora!</h1>
+                    <h1 className="text-2xl font-bold">Sign in to Taskora!</h1>
                     <p>Enter your details to access your account</p>
                 </div>
               <form onSubmit={handleLogin}>
@@ -67,8 +70,8 @@ const Login = () => {
                 <div className='text-center'>
                     <p className='font-bold'>OR</p>
                     <div className='flex gap-1 justify-center my-5'>
-                        <button onClick={handleGoogleSingIn} className='btn'>Sing in with Google</button>
-                        <button className='btn'>Sing in with GitHub</button>
+                        <button onClick={handleGoogleSingIn} className='btn'>Sign in with Google</button>
+                        <button className='btn'>Sign in with GitHub</button>
                     </div>
                     Don&apos;t have an account? <Link className='underline' to='/registration'>Create Account</Link>
                 </div>
